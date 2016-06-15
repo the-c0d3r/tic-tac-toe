@@ -18,6 +18,7 @@ class TicTacToe(App):
         return self.root
 
     def on_start(self):
+        self.state = 0 # 0 means playing, 1 means done
         self.scoreboard = Record()
         self.resultbar = self.root.ids.result_label
         self.resultbar.text = self.scoreboard.get_result()
@@ -28,8 +29,8 @@ class TicTacToe(App):
     def create_button(self):
         """ Creates the button """
         self.buttons = []
-        for i in range(1,10):
-            idnum = "btn"+str(i)
+        for i in range(1, 10):
+            idnum = "btn" + str(i)
             btn = Button(text="", id=idnum, on_press=self.pressed_btn)
             self.root.ids.btn_box.add_widget(btn)
             self.buttons.append(btn)
@@ -41,6 +42,9 @@ class TicTacToe(App):
 
     def pressed_btn(self, btn):
         """ Handles the slot button press event """
+        if self.state == 1:
+            self.statusbar.text = "Game over"
+            return
         if btn.text == "":
             btn.text = "O"
             if self.checkwin("O"):
@@ -48,6 +52,7 @@ class TicTacToe(App):
                 self.statusbar.text = "Player WIN"
                 self.scoreboard.human += 1
                 self.resultbar.text = self.scoreboard.get_result()
+                self.state = 1
                 return
             else:
                 self.statusbar.text = "Player Moved. Computer turn"
@@ -58,6 +63,7 @@ class TicTacToe(App):
                 self.statusbar.text = "Computer WIN"
                 self.scoreboard.computer += 1
                 self.resultbar.text = self.scoreboard.get_result()
+                self.state = 1
                 return
         else:
             self.statusbar.text = "That slot is already occupied"
@@ -67,6 +73,7 @@ class TicTacToe(App):
         self.wipe_button()
         # Resets the playing field
         self.statusbar.text = "Play Again"
+        self.state = 0
 
     def pressed_exit(self):
         exit()
@@ -106,6 +113,7 @@ class TicTacToe(App):
             self.statusbar.text = "Draw match for player and computer"
             self.scoreboard.draw += 1
             self.resultbar.text = self.scoreboard.get_result()
+            self.state = 1
 
     def get_empty_slot(self):
         """ Returns the empty slot of tic tac toe """
