@@ -1,51 +1,36 @@
 BoxLayout:
+    id: mainWindow
     orientation: 'vertical'
-    GridLayout:
-        id: btn_box
-        cols: 3
-        rows: 3
+    BoxLayout:
+        size_hint_y: 0.3
+        orientation: 'vertical'
+        Label:
+            id: result_label
+            text: ''
+        
+        BoxLayout:
+            orientation: 'horizontal'
 
-        Button:
-            id: s1
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s2
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s3
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s4
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s5
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s6
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s7
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s8
-            text: ''
-            on_press: app.pressed_btn(self)
-        Button:
-            id: s9
-            text: ''
-            on_press: app.pressed_btn(self)
-   
+            Button:
+                id: btn_playagain
+                text: "Play Again"
+                on_press: app.pressed_playagain()
+            Button:
+                id: btn_exit
+                text: "Exit"
+                on_press: app.pressed_exit()
+
+    BoxLayout:
+        orientation: 'vertical'
+        
+        GridLayout:
+            id: btn_box
+            cols: 3
+            rows: 3
 
 
-    Label:
-        size_hint_y: 0.1
-        id: status_label
-        text: app.statusbar
-    
+        Label:
+            size_hint_y: 0.1
+            id: status_label
+            text: ''
+
